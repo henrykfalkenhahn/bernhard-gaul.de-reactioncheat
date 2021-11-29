@@ -40,5 +40,8 @@ class postTime:
         return urllib.parse.quote_plus(blowfish.encrypt(x.getKey(),str(x.timeMS/1000)))      
     def send(self):
         data = "nzeit="+str(self.timeMS/1000)+"&nkommentar="+self.remark()+"&user="+self.username+"&nhidden="+self.encrypt()+"&nfp="+str(random.randint(1000000000,9999999999))+"&submitprompt=ja"
-        resp = requests.post(url, headers=headers, data=data)
-        print(resp.status_code)
+        reqp = requests.post(url, headers=headers, data=data)
+        if(reqp.status_code == 200):
+            return 1
+        else:
+            return 0
